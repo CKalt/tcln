@@ -1,0 +1,5 @@
+#!/bin/sh
+cargo run --release 2>&1 | tee tcln.out
+#export RAYON_NUM_THREADS=20; cargo run --release 2>&1 | tee tcln.out
+#cargo run --release > tcln.out
+vi tcln.out
