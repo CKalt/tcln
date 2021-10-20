@@ -1,6 +1,5 @@
 use std::io::prelude::*;
 use std::net::TcpStream;
-use std::io::BufReader;
 
 fn handle_client(mut stream: TcpStream) -> std::io::Result<()> {
     let sample_request = r#"
@@ -21,18 +20,11 @@ fn handle_client(mut stream: TcpStream) -> std::io::Result<()> {
         }
         _ => {}
     }
-    let mut reader = BufReader::new(stream);
-    let mut line = String::new();
 
-    loop {
-        let len = reader.read_line(&mut line)?;
-        if len > 0 {
-            println!("{}", line.trim());
-        } else {
-            println!("len zero");
-            break;
-        }
-    }
+    let mut buffer = String::new();
+    stream.read_to_string(&mut buffer)?;
+    println!("{}", buffer);
+
     Ok(())
 }
 
